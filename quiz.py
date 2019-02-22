@@ -30,3 +30,89 @@ game_data = {
         "answers": ["computer","programs","central processing unit","Peripheral"]
     }
 }
+
+#main function
+def main():
+    """The main function
+
+        Input:
+            difficulty (str): difficulty selected by user.
+        Behavior:
+            It checks the user input.
+            If user input matches the difficulty from easy | medium | hard,
+            run function fill(paragraph, difficulty).
+            If user input is incorrect
+            ask user to select difficulty from easy | medium | hard again.
+
+    """
+    while True:
+        #prompt user to choose difficulty
+        difficulty = raw_input("Please select a game difficulty!""\n"
+                           "Difficulty choices: easy | medium | hard""\n"
+                           "Please type your game difficulty:")
+        #start the quiz and show user the content of quiz
+        if difficulty == "easy" or difficulty == "medium" or difficulty == "hard":
+            print "\n""You have selected difficulty "+ difficulty +". Enjoy the quiz.""\n"
+            paragraph = game_data[difficulty]["quiz"]
+            fill(paragraph, difficulty)
+            #for user complete the quiz
+            print "You just finished the quiz. Thanks for playing!!!"
+            break
+        else:
+            print "\n""Wrong difficulty! Please try again!"
+    return difficulty
+
+def fill(paragraph, difficulty):
+    """Prompt user to fill answer in the blank.
+
+        Input:
+            answer (str): answer typed by user.
+        Behavior:
+            If user type the correct answer,
+            run function replace(paragraph,count, difficulty) and print the quiz with right answer.
+            After that, ask user to fill answer in the next blank.
+            if user type the incorrect answer,
+            ask user to try again.
+            This process happens until all blanks are found.
+
+    """
+    answer_list = game_data[difficulty]["answers"]
+    index = 0
+    count = 0
+    question_count = 1
+    print paragraph
+    while index < len(blank):
+        answer_fill = raw_input("\n""Q"+str(question_count)+". What should go in" +blank[count]+"?:")
+        if answer_fill == answer_list[count]:
+            print "\n""Correct!""\n"
+            print replace(paragraph, count, difficulty)
+            paragraph = replace(paragraph, count, difficulty)
+            index += 1
+            count += 1
+            question_count += 1
+        else:
+            print "\n""Incorrect! Try again""\n"
+            print paragraph
+    return answer_fill
+
+#replace blank content in the quiz with the correct answer
+def replace(paragraph,count, difficulty):
+    """replace the blank with the right answer
+
+        Input:
+            paragraph: content of quiz based on the difficulty user selected.
+        Behavior:
+            Replace the blank with right answer in the paragraph.
+
+    """
+    answer_list = game_data[difficulty]["answers"]
+    quiz_list = paragraph.split()
+    replaced = []
+    for word in quiz_list:
+        word = word.replace(blank[count],answer_list[count])
+        replaced.append(word)
+    paragraph = " ".join(replaced)
+    return paragraph
+
+#run the main()
+main()
